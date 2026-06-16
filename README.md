@@ -1,5 +1,3 @@
-# Global-Solution---SOA---SUBSTITUTIVA
-
 graph TD
     %% Atores
     User1((Cidadão))
