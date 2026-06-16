@@ -7,6 +7,9 @@
 **Turno:** Noturno  
 
 ---
+obervação: dentro deste repositório estão localizadas os prints do sistema funcionando.
+-ocorrências 
+-autenticação
 
 ## 📖 Descrição da Solução
 Esta aplicação backend é uma solução arquitetural focada no monitoramento de ocorrências urbanas (como buracos em vias, alagamentos e falhas de iluminação). O sistema permite o registro ágil de problemas, acompanhamento de status, classificação automática de prioridade e simulação de notificação de responsáveis.
