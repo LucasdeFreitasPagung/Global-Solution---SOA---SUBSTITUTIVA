@@ -1,37 +1,40 @@
+# 🏙️ Plataforma de Monitoramento de Infraestrutura Urbana - Arquitetura SOA
+
+**Aluno:** Lucas de Freitas Pagung  
+**RM:** 553242  
+**Turma:** 3ESPR  
+**Polo:** Av. Paulista  
+**Turno:** Noturno  
+
+---
+
+## 📖 Descrição da Solução
+Esta aplicação backend é uma solução arquitetural focada no monitoramento de ocorrências urbanas (como buracos em vias, alagamentos e falhas de iluminação). O sistema permite o registro ágil de problemas, acompanhamento de status, classificação automática de prioridade e simulação de notificação de responsáveis.
+
+## 🏗️ Diagrama da Arquitetura
+A solução foi desenhada utilizando o padrão **Monólito Modular**, o que garante uma excelente separação de responsabilidades (SoC) enquanto mantém a simplicidade de implantação e testes.
+
+```mermaid
 graph TD
-    %% Atores
     User1((Cidadão))
     User2((Operador / Admin))
     
-    %% API e Segurança
     Gateway[API REST / FastAPI]
-    Security{Módulo de Segurança \n Auth / JWT}
+    Security{Módulo de Segurança \n Auth}
     
-    %% Módulos do Sistema
     ModOcorrencia[Módulo de Ocorrências \n Gestão e Status]
     ModPrioridade[Módulo de Prioridade \n Regras de Negócio]
     ModNotificacao[Módulo de Notificação \n Eventos e Alertas]
     
-    %% Banco de Dados
     DB[(Mock Database \n Memória)]
 
-    %% Fluxo de Comunicação
     User1 -->|POST / GET| Gateway
-    User2 -->|PUT / GET| Gateway
+    User2 -->|PATCH / DELETE| Gateway
     
     Gateway -->|Intercepta| Security
     Security -->|Valida| ModOcorrencia
     
-    ModOcorrencia -->|Consulta Regra \n Síncrono| ModPrioridade
-    ModOcorrencia -.->|Dispara Evento \n Assíncrono| ModNotificacao
+    ModOcorrencia -->|Consulta Regra| ModPrioridade
+    ModOcorrencia -.->|Dispara Evento Assíncrono| ModNotificacao
     
     ModOcorrencia <-->|Leitura / Escrita| DB
-    
-    %% Estilização
-    classDef module fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef db fill:#fff3e0,stroke:#e65100,stroke-width:2px;
-    classDef core fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
-    
-    class ModOcorrencia,ModPrioridade,ModNotificacao module;
-    class DB db;
-    class Gateway,Security core;
